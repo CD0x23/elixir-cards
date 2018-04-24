@@ -29,9 +29,22 @@ defmodule Cards do
   def load(filename) do
 
     case File.read(filename) do # pattern matching instead of if statement
-      :ok -> :erlang.binary_to_term binary
-      :error -> "That file does not exist"    
+      {:ok, binary} -> :erlang.binary_to_term binary
+      {:error, _reason} -> "That file does not exist" # underscore before the variable we don't care about
     end
-         
+
+  end
+  
+  def create_hand(hand_size) do
+
+#   deck = Cards.create_deck
+#   deck = Cards.shuffle(deck)
+#   hand = Cards.deal(deck, hand_size)  
+
+    # doing the same thing above but with the pipe operator
+    Cards.create_deck
+    |> Cards.shuffle
+    |> Cards.deal(hand_size)
+
   end
 end
